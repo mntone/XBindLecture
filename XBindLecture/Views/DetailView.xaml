@@ -1,0 +1,19 @@
+﻿<ResourceDictionary
+	x:Class="XBindLecture.Views.DetailView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:vm="using:XBindLecture.ViewModels">
+
+	<DataTemplate
+		x:Key="DetailViewTemplate"
+		x:DataType="vm:PersonViewModel">
+		<StackPanel>
+			<TextBlock
+				Text="{x:Bind Name}" />
+			<TextBlock
+				Text="{x:Bind Age}" />
+			<TextBlock
+				Text="{x:Bind Sex}" />
+		</StackPanel>
+	</DataTemplate>
+</ResourceDictionary>

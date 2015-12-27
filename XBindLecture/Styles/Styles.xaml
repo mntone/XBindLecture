@@ -1,0 +1,30 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<!-- BasicListViewStyle -->
+	<Style
+		x:Key="BasicListViewStyle"
+		TargetType="ListView">
+		<Setter
+			Property="Padding"
+			Value="0,8,0,8" />
+		<Setter
+			Property="ItemContainerStyle"
+			Value="{StaticResource BasicListViewItemStyle}" />
+		<Setter
+			Property="AutomationProperties.AutomationId"
+			Value="ItemListView" />
+		<Setter
+			Property="AutomationProperties.Name"
+			Value="Items In Group" />
+	</Style>
+
+	<!-- BasicListViewItem -->
+	<Style
+		x:Name="BasicListViewItemStyle"
+		TargetType="ListViewItem">
+		<Setter
+			Property="HorizontalContentAlignment"
+			Value="Stretch" />
+	</Style>
+</ResourceDictionary>

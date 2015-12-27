@@ -1,0 +1,106 @@
+﻿<Page
+	x:Class="XBindLecture.Views.MainPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:v="using:XBindLecture.Views"
+	xmlns:vm="using:XBindLecture.ViewModels">
+	<Page.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<v:DetailView />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Page.Resources>
+
+	<Grid
+		Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup
+				x:FieldModifier="Private"
+				x:Name="AdaptiveStates"
+				CurrentStateChanged="OnAdaptiveStatesCurrentStateChanged">
+				<VisualState>
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger
+							MinWindowWidth="548" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter
+							Target="MasterColumn.Width"
+							Value="320" />
+						<Setter
+							Target="DetailColumn.Width"
+							Value="*" />
+					</VisualState.Setters>
+				</VisualState>
+				<VisualState
+					x:FieldModifier="Private"
+					x:Name="NarrowState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger
+							MinWindowWidth="0" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter
+							Target="MasterColumn.Width"
+							Value="*" />
+						<Setter
+							Target="DetailColumn.Width"
+							Value="0" />
+						<Setter
+							Target="PersonsListView.SelectionMode"
+							Value="None" />
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				x:FieldModifier="Private"
+				x:Name="MasterColumn"
+				Width="320" />
+			<ColumnDefinition
+				x:FieldModifier="Private"
+				x:Name="DetailColumn"
+				Width="*" />
+		</Grid.ColumnDefinitions>
+
+		<ListView
+			x:FieldModifier="Private"
+			x:Name="PersonsListView"
+			ItemContainerTransitions="{x:Null}"
+			ItemsSource="{x:Bind Persons}"
+			SelectedItem="{x:Bind SelectedPerson, Mode=OneWay}"
+			SelectionMode="Single"
+			IsItemClickEnabled="True"
+			ItemClick="OnItemClick"
+			Style="{StaticResource BasicListViewStyle}">
+			<ListView.ItemTemplate>
+				<DataTemplate
+					x:DataType="vm:PersonViewModel">
+					<TextBlock
+						Grid.Column="1"
+						Margin="12,8,0,8"
+						Text="{x:Bind Name}"
+						VerticalAlignment="Center"
+						Style="{StaticResource BodyTextBlockStyle}" />
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+
+		<ContentPresenter
+			x:FieldModifier="Private"
+			x:Name="DetailView"
+			Grid.Column="1"
+			Padding="12"
+			BorderThickness="2,0,0,0"
+			BorderBrush="{ThemeResource SystemChromeMediumColor}"
+			Content="{x:Bind SelectedPerson, Mode=OneWay}"
+			ContentTemplate="{StaticResource DetailViewTemplate}">
+			<ContentPresenter.ContentTransitions>
+				<TransitionCollection />
+			</ContentPresenter.ContentTransitions>
+		</ContentPresenter>
+	</Grid>
+</Page>
